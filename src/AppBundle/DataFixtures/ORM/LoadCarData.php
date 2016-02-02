@@ -35,7 +35,7 @@ class LoadCarData implements FixtureInterface
         ");
         $car->setCategory("Osobowe");
 
-//        $file = new UploadedFile($this->path . 'audi-a3.jpg', 'Audi A3', null, null, null, true);
+
         $file = new File($this->path . '1.jpg');
         $car->setFile($file);
 
@@ -55,9 +55,9 @@ class LoadCarData implements FixtureInterface
         <dd>Napęd</dd>
         <dt>na 4 kopyta</dt>
         ");
-        $car->setCategory("Osobowe");
+        $car->setCategory("Terenowe");
 
-//        $file = new UploadedFile($this->path . 'audi-a3.jpg', 'Audi A3', null, null, null, true);
+
         $file = new File($this->path . '2.jpg');
         $car->setFile($file);
 
@@ -79,7 +79,7 @@ class LoadCarData implements FixtureInterface
         ");
         $car->setCategory("Osobowe");
 
-//        $file = new UploadedFile($this->path . 'audi-a3.jpg', 'Audi A3', null, null, null, true);
+
         $file = new File($this->path . '3.jpg');
         $car->setFile($file);
 
@@ -101,7 +101,7 @@ class LoadCarData implements FixtureInterface
         ");
         $car->setCategory("Osobowe");
 
-//        $file = new UploadedFile($this->path . 'audi-a3.jpg', 'Audi A3', null, null, null, true);
+
         $file = new File($this->path . '4.jpg');
         $car->setFile($file);
 
@@ -121,9 +121,9 @@ class LoadCarData implements FixtureInterface
         <dd>Napęd</dd>
         <dt>na 4 koła</dt>
         ");
-        $car->setCategory("Osobowe");
+        $car->setCategory("Terenowe");
 
-//        $file = new UploadedFile($this->path . 'audi-a3.jpg', 'Audi A3', null, null, null, true);
+
         $file = new File($this->path . '5.jpg');
         $car->setFile($file);
 
