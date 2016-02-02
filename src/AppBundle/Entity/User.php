@@ -18,9 +18,47 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CarOrder", mappedBy="car")
+     */
+    protected $carOrders;
+
     public function __construct()
     {
         parent::__construct();
         // your own logic
+    }
+
+    /**
+     * Add carOrders
+     *
+     * @param \AppBundle\Entity\CarOrder $carOrders
+     * @return User
+     */
+    public function addCarOrder(\AppBundle\Entity\CarOrder $carOrders)
+    {
+        $this->carOrders[] = $carOrders;
+
+        return $this;
+    }
+
+    /**
+     * Remove carOrders
+     *
+     * @param \AppBundle\Entity\CarOrder $carOrders
+     */
+    public function removeCarOrder(\AppBundle\Entity\CarOrder $carOrders)
+    {
+        $this->carOrders->removeElement($carOrders);
+    }
+
+    /**
+     * Get carOrders
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCarOrders()
+    {
+        return $this->carOrders;
     }
 }

@@ -12,3 +12,5 @@
 /composer.phar
 /.idea
 /.git
+/web/uploads
+!web/uploads/cars/.gitkeep
