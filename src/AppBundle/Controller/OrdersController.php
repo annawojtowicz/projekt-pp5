@@ -6,24 +6,39 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class DefaultController extends Controller
+use AppBundle\Entity;
+
+class OrdersController extends Controller
 {
 
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('AppBundle:Car');
+        $repo = $em->getRepository('AppBundle:CarOrder');
 
-        $allCars = $repo->getAllCars();
-        $mostPopular = $repo->getMostPopularCars();
-        $bestRated = $repo->getBestRatedCars();
-        $categories = $repo->getCategories();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        return $this->render('AppBundle:Default:index.html.twig', array(
-            'allCars' => $allCars,
-            'mostPopular' => $mostPopular,
-            'bestRated' => $bestRated,
-            'categories' => $categories
+        $orders = $repo->getOrdersForUser($user);
+
+        return $this->render('AppBundle:Orders:index.html.twig', array(
+            'orders' => $orders
         ));
+    }
+
+    public function rentAction(Entity\Car $car)
+    {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $order = new Entity\CarOrder();
+        $order->setCar($car);
+        $order->setUser($user);
+        $order->setDateFrom(new \DateTime());
+        $order->setDateTo((new \DateTime())->add(new \DateInterval('P1D')));
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($order);
+        $em->flush();
+
+        return $this->redirectToRoute('app_orders');
     }
 }

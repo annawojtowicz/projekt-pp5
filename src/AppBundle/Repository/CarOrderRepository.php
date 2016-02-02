@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use AppBundle\Entity\User;
 
 /**
  * CarOrderRepository
@@ -12,4 +13,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class CarOrderRepository extends EntityRepository
 {
+    public function getOrdersForUser(User $user){
+        return $this->getEntityManager()
+            ->createQuery("
+                SELECT carOrder, car FROM AppBundle:CarOrder carOrder
+                JOIN carOrder.car car
+                WHERE carOrder.user= ?1
+                ORDER BY carOrder.dateFrom
+            ")
+            ->setParameter(1, $user->getId())
+            ->getResult();
+    }
 }

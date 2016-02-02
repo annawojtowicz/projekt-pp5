@@ -5,21 +5,15 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Car;
 
-class OrdersController extends Controller
+class CarController extends Controller
 {
 
-    public function indexAction()
+    public function indexAction(Car $car)
     {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('AppBundle:CarOrder');
-
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-
-        $orders = $repo->getOrdersForUser($user);
-
-        return $this->render('AppBundle:Orders:index.html.twig', array(
-            'orders' => $orders
+        return $this->render('AppBundle:Car:index.html.twig', array(
+            'car' => $car
         ));
     }
 }

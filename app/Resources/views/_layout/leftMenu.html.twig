@@ -1,6 +1,19 @@
 <ul class="nav">
-    <li class="nav-header">Navigation</li>
-    {% block leftMenu %}{% endblock leftMenu %}
+    <li class="nav-header">Menu</li>
+    {% block leftMenu %}
+        <li>
+            <a href="{{ path('app_homepage') }}">
+                <i class="fa fa-automobile"></i>
+                <span>Lista samochodów</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('app_orders') }}">
+                <i class="fa fa-user"></i>
+                <span>Moje wypożyczenia</span>
+            </a>
+        </li>
+    {% endblock leftMenu %}
     <!-- begin sidebar minify button -->
     <li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
     <!-- end sidebar minify button -->
