@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block pageHeader %}Moje wypożyczenia <small>twoja historia w naszych rękach</small>{% endblock pageHeader %}
+{% block breadcrumbs %}
+    <li><a href="/">Home</a></li>
+    <li class="active">Moje wypożyczenia</li>
+{% endblock breadcrumbs %}
+
+{% block pageContent %}
+
+    <div class="col-md-12 ui-sortable">
+        <div class="panel panel-inverse" data-sortable-id="ui-general-1">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Moje wypożyczenia</h4>
+            </div>
+            <div class="panel-body">
+                {% if orders|length %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Samochód</th>
+                            <th>Data wypożyczenia</th>
+                            <th>Data zwrotu</th>
+                            <th>Cena</th>
+                            <th>Moja ocena</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ order.car.brand }} {{ order.car.name }}</td>
+                                    <td>{{ order.dateFrom|date('d.m.Y') }}</td>
+                                    <td>{{ order.dateTo|date('d.m.Y') }}</td>
+                                    <td>{{ order.price }}</td>
+                                    <td>{{ order.rate }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+                {% if orders|length==0 %}<div class="text-center">Brak wypożyczeń</div>{% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock pageContent %}

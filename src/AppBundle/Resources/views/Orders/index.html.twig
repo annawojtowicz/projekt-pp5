@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block pageHeader %}Lista samochodów <small>wybierz samochód który Cię interesuje</small>{% endblock pageHeader %}
+
+{% block pageContent %}
+
+    <div class="col-md-12 ui-sortable">
+        <div class="panel panel-inverse" data-sortable-id="ui-general-1">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Wszystkie samochody wypożyczalni</h4>
+            </div>
+            <div class="panel-body">
+                <ul class="registered-users-list clearfix">
+                {% for car in allCars %}
+                    {% include "AppBundle:Element:car.html.twig" with {car:car} %}
+                {% else %}
+                    <div class="text-center">
+                        Brak wyników
+                    </div>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 ui-sortable">
+        <div class="panel panel-inverse" data-sortable-id="ui-general-2">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Popularne samochody</h4>
+            </div>
+            <div class="panel-body">
+                <ul class="registered-users-list clearfix">
+                    {% for car in mostPopular %}
+                        {% include "AppBundle:Element:car.html.twig" with {car:car} %}
+                    {% else %}
+                        <div class="text-center">
+                            Brak wyników
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="panel panel-inverse" data-sortable-id="ui-general-3">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Najlepiej oceniane samochody</h4>
+            </div>
+            <div class="panel-body">
+                <ul class="registered-users-list clearfix">
+                    {% for car in bestRated %}
+                        {% include "AppBundle:Element:car.html.twig" with {car:car} %}
+                    {% else %}
+                        <div class="text-center">
+                            Brak wyników
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 ui-sortable">
+        <div class="panel panel-inverse" data-sortable-id="ui-general-3">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Lista kategorii</h4>
+            </div>
+            <div class="panel-body">
+                <ul class="registered-users-list clearfix">
+                    {% for category in categories %}
+                        <li>{{ category.category }}</li>
+                    {% else %}
+                        <li class="text-center">
+                            Brak wyników
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock pageContent %}
