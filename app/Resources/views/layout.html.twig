@@ -1,0 +1,70 @@
+{% extends "base.html.twig" %}
+
+{% block pageContainer %}
+    <div id="page-container" class="fade">
+        <!-- begin login -->
+        <div class="login login-with-news-feed">
+            <!-- begin news-feed -->
+            <div class="news-feed">
+                <div class="news-image">
+                    <img src="bundles/app/img/login-bg/bg-7.jpg" data-id="login-cover-image" alt="" />
+                </div>
+                <div class="news-caption">
+                    <h4 class="caption-title"><i class="fa fa-diamond text-success"></i> Wypożyczalnia samochodów</h4>
+                    <p>
+                        Niemiec płakał jak sprzedawał
+                    </p>
+                </div>
+            </div>
+            <!-- end news-feed -->
+            <!-- begin right-content -->
+            <div class="right-content">
+                <!-- begin login-header -->
+                <div class="login-header">
+                    <div class="brand">
+                        <span class="logo"></span>{% block pageTitle %}Wypożyczalnia samochodów{% endblock pageTitle %}
+                        <small>Formularz logowania</small>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-sign-in"></i>
+                    </div>
+                </div>
+                <!-- end login-header -->
+
+
+                {% if error is defined and error %}
+                    <div class="login-content">
+                        <div class="alert alert-danger fade in m-b-15">
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="login-content">
+                    <form action="{{ path("fos_user_security_check") }}" method="post" class="margin-bottom-0">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                        <div class="form-group m-b-15">
+                            <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control input-lg" placeholder="Login" required="required" />
+                        </div>
+                        <div class="form-group m-b-15">
+                            <input type="password" id="password" name="_password" required="required" class="form-control input-lg" placeholder="Hasło" />
+                        </div>
+
+                        <div class="checkbox m-b-30">
+
+                            <label>
+                                <input type="checkbox" name="_remember_me" value="on" /> Zapamiętaj logowanie
+                            </label>
+                        </div>
+
+                        <div class="login-buttons">
+                            <input type="submit" class="btn btn-success btn-block btn-lg" name="_submit" value="Zaloguj" />
+                        </div>
+                    </form>
+                </div>
+                <!-- end login-content -->
+            </div>
+            <!-- end right-container -->
+        </div>
+        <!-- end login -->
+    </div>
+{% endblock pageContainer %}

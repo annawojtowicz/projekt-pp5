@@ -1,13 +1,118 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>{% block headTitle %}Wypożyczalnia samochodów{% endblock headTitle %}</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta content="Anna Wójtowicz" name="author" />
+
+    {# ================== BEGIN BASE CSS STYLE ================== #}
+    
+    {# ================== END BASE CSS STYLE ================== #}
+
+    {% block stylesheets %}
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link href="/bundles/app/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+    <link href="/bundles/app/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/bundles/app/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/bundles/app/css/animate.min.css" rel="stylesheet" />
+    <link href="/bundles/app/css/style.min.css" rel="stylesheet" />
+    <link href="/bundles/app/css/style-responsive.min.css" rel="stylesheet" />
+    <link href="/bundles/app/css/theme/default.css" rel="stylesheet" id="theme" />
+    {% endblock %}
+
+    {# ================== BEGIN BASE JS ================== #}
+    <script src="/bundles/app/plugins/pace/pace.min.js"></script>
+    {# ================== END BASE JS ================== #}
+
+    {% block inlineStylesheets %}{% endblock %}
+</head>
+<body>
+<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+
+{% block pageContainer %}
+    <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+        {# begin #header #}
+        <div id="header" class="header navbar navbar-default navbar-fixed-top">
+            {# begin container-fluid #}
+            <div class="container-fluid">
+                {# begin mobile sidebar expand / collapse button #}
+                <div class="navbar-header">
+                    <a href="/" class="navbar-brand"><span class="navbar-logo"></span>{% block pageTitle %}Wypożyczalnia{% endblock pageTitle %}</a>
+                    <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                {# end mobile sidebar expand / collapse button #}
+
+                {# begin header navigation right #}
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <form class="navbar-form full-width">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter keyword" />
+                                <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+                    </li>
+                    {% include "_layout/notifications.html.twig" %}
+                    {% include "_layout/userSettings.html.twig" %}
+                </ul>
+                {# end header navigation right #}
+            </div>
+            {# end container-fluid #}
+        </div>
+        {# end #header #}
+
+        <div id="sidebar" class="sidebar">
+            <div data-scrollbar="true" data-height="100%">
+                {% include "_layout/leftMenuUser.html.twig" %}
+                {% include "_layout/leftMenu.html.twig" %}
+            </div>
+        </div>
+        <div class="sidebar-bg"></div>
+
+        {# begin #content #}
+        <div id="content" class="content">
+            <ol class="breadcrumb pull-right">
+                {% block breadcrumbs %}
+                    <li><a href="javascript:;">Home</a></li>
+                    <li class="active">Dashboard</li>
+                {% endblock breadcrumbs %}
+            </ol>
+            <h1 class="page-header">{% block pageHeader %}Dashboard <small>header small text goes here...</small>{% endblock pageHeader %}</h1>
+            {% block pageContent %}{% endblock pageContent %}
+        </div>
+        {# end #content #}
+
+        <!-- begin theme-panel -->
+        {% include "_layout/themePanel.html.twig" %}
+        <!-- end theme-panel -->
+
+        <!-- begin scroll to top btn -->
+        <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+        <!-- end scroll to top btn -->
+    </div>
+{% endblock pageContainer %}
+
+{# ================== BEGIN BASE JS ================== #}
+<script src="/bundles/app/plugins/jquery/jquery-1.9.1.min.js"></script>
+<script src="/bundles/app/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
+<script src="/bundles/app/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+<script src="/bundles/app/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/bundles/app/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/bundles/app/plugins/jquery-cookie/jquery.cookie.js"></script>
+{# ================== END BASE JS ================== #}
+<script src="/bundles/app/js/apps.js"></script>
+{% block javascripts %}{% endblock javascripts %}
+
+<script type="text/javascript">
+    (function($){
+        App.init();
+    })(jQuery);
+</script>
+{% block inlineJavascripts %}{% endblock %}
+</body>
 </html>

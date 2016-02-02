@@ -1,0 +1,10 @@
+<li class="dropdown navbar-user">
+    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+        <img src="http://lorempixel.com/30/30/people" alt="" />
+        <span class="hidden-xs">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</span> <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu animated fadeInLeft">
+        <li class="arrow"></li>
+        <li><a href="{{ path('fos_user_security_logout') }}">Wyloguj</a></li>
+    </ul>
+</li>

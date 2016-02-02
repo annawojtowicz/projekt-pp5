@@ -1,0 +1,10 @@
+<ul class="nav">
+    <li class="nav-profile">
+        <div class="image">
+            <a href="javascript:;"><img src="http://lorempixel.com/30/30/people" alt="" /></a>
+        </div>
+        <div class="info">
+            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
+        </div>
+    </li>
+</ul>
