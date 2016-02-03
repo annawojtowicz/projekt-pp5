@@ -7,7 +7,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 
-
+/**
+ *Zarzadza akcjami na stronie glownej
+ * Class DefaultController
+ * @package AppBundle\Controller
+ */
 class DefaultController extends Controller
 {
 

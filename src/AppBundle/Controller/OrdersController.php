@@ -8,6 +8,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 use AppBundle\Entity;
 
+/**
+ * Zarzadza akcjami dotyczacymi zamowien
+ * Class OrdersController
+ * @package AppBundle\Controller
+ */
 class OrdersController extends Controller
 {
 
