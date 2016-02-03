@@ -1,0 +1,70 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="fos_user")
+ */
+class User extends BaseUser
+{
+    /**
+     * Id uzytkownika
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * zmowienie uzytkownika
+     * @ORM\OneToMany(targetEntity="CarOrder", mappedBy="user")
+     */
+    protected $carOrders;
+
+    public function __construct()
+    {
+        parent::__construct();
+        // your own logic
+    }
+
+    /**
+     * Dodaje zamowienia samochodow
+     * Add carOrders
+     *
+     * @param \AppBundle\Entity\CarOrder $carOrders
+     * @return User
+     */
+    public function addCarOrder(\AppBundle\Entity\CarOrder $carOrders)
+    {
+        $this->carOrders[] = $carOrders;
+
+        return $this;
+    }
+
+    /**
+     * Usuwa zamowienia
+     * Remove carOrders
+     *
+     * @param \AppBundle\Entity\CarOrder $carOrders
+     */
+    public function removeCarOrder(\AppBundle\Entity\CarOrder $carOrders)
+    {
+        $this->carOrders->removeElement($carOrders);
+    }
+
+    /**
+     * Zwraca zamowienia uzytkownika
+     * Get carOrders
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCarOrders()
+    {
+        return $this->carOrders;
+    }
+}
+

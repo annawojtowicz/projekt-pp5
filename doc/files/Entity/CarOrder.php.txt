@@ -1,0 +1,213 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CarOrder
+ *
+ * @ORM\Table(name="car_order")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CarOrderRepository")
+ */
+class CarOrder
+{
+    /**
+     * ID zamowienia
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * Data (od)
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateFrom", type="datetime")
+     */
+    private $dateFrom;
+
+    /**
+     * Data(do)
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateTo", type="datetime")
+     */
+    private $dateTo;
+
+    /**
+     * Ocena (samochodu wystawion przez uzytkownika)
+     * @var string
+     *
+     * @ORM\Column(name="rate", type="integer", nullable=true)
+     */
+    private $rate;
+
+    /**
+     * samochod ktory jest przypisany do zamowienia
+     * @ORM\ManyToOne(targetEntity="Car", inversedBy="carOrders")
+     * @ORM\JoinColumn(name="car_id", referencedColumnName="id")
+     */
+    private $car;
+
+    /**
+     * uzytkownik przypisany do zamowienia
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="carOrders")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
+
+    /**
+     * zwraca id zamowienia
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * ustawia date (od)
+     * Set dateFrom
+     *
+     * @param \DateTime $dateFrom
+     * @return CarOrder
+     */
+    public function setDateFrom($dateFrom)
+    {
+        $this->dateFrom = $dateFrom;
+
+        return $this;
+    }
+
+    /**
+     * Zwraca date (od)
+     * Get dateFrom
+     *
+     * @return \DateTime 
+     */
+    public function getDateFrom()
+    {
+        return $this->dateFrom;
+    }
+
+    /**
+     * Ustawia date (do)
+     * Set dateTo
+     *
+     * @param \DateTime $dateTo
+     * @return CarOrder
+     */
+    public function setDateTo($dateTo)
+    {
+        $this->dateTo = $dateTo;
+
+        return $this;
+    }
+
+    /**
+     * Zwraca date (do)
+     * Get dateTo
+     *
+     * @return \DateTime 
+     */
+    public function getDateTo()
+    {
+        return $this->dateTo;
+    }
+
+    /**
+     * Ustawia ocene
+     * Set rate
+     *
+     * @param string $rate
+     * @return CarOrder
+     */
+    public function setRate($rate)
+    {
+        $this->rate = $rate;
+
+        return $this;
+    }
+
+    /**
+     * Zwraca ocene
+     * Get rate
+     *
+     * @return string 
+     */
+    public function getRate()
+    {
+        return $this->rate;
+    }
+
+    /**
+     * Ustawia samochod w zamowieniu
+     * Set car
+     *
+     * @param \AppBundle\Entity\Car $car
+     * @return CarOrder
+     */
+    public function setCar(\AppBundle\Entity\Car $car = null)
+    {
+        $this->car = $car;
+
+        return $this;
+    }
+
+    /**
+     * Zwraca samochod z zamowienia
+     * Get car
+     *
+     * @return \AppBundle\Entity\Car 
+     */
+    public function getCar()
+    {
+        return $this->car;
+    }
+
+    /**
+     * Ustawia uzytkownika w zamowieniu
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     * @return CarOrder
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Zwraca uzytkownika zamowienia
+     * Get user
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * zwraca cene
+     * @return int
+     */
+    public function getPrice(){
+        $car = $this->getCar();
+
+        $dateFrom = $this->getDateFrom();
+        $dateTo = $this->getDateTo();
+        $diff = $dateTo->diff($dateFrom);
+        return intval($diff->format('%d')) * $car->getPrice();
+    }
+}
+
