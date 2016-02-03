@@ -5,5 +5,5 @@
                background-position:center center;
     background-size: contain;"
     ></a>
-    <h4 class="username text-ellipsis">{{ car.brand }} <small>{{ car.model }}</small></h4>
+    <h4 class="username text-ellipsis"><a href="{{ path('app_car', {id:car.id}) }}">{{ car.brand }} <small>{{ car.model }}</small></a></h4>
 </li>
