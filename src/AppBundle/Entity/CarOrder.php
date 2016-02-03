@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class CarOrder
 {
     /**
+     * ID zamowienia
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -22,6 +23,7 @@ class CarOrder
     private $id;
 
     /**
+     * Data (od)
      * @var \DateTime
      *
      * @ORM\Column(name="dateFrom", type="datetime")
@@ -29,6 +31,7 @@ class CarOrder
     private $dateFrom;
 
     /**
+     * Data(do)
      * @var \DateTime
      *
      * @ORM\Column(name="dateTo", type="datetime")
@@ -36,6 +39,7 @@ class CarOrder
     private $dateTo;
 
     /**
+     * Ocena (samochodu wystawion przez uzytkownika)
      * @var string
      *
      * @ORM\Column(name="rate", type="integer", nullable=true)
@@ -43,12 +47,14 @@ class CarOrder
     private $rate;
 
     /**
+     * samochod ktory jest przypisany do zamowienia
      * @ORM\ManyToOne(targetEntity="Car", inversedBy="carOrders")
      * @ORM\JoinColumn(name="car_id", referencedColumnName="id")
      */
     private $car;
 
     /**
+     * uzytkownik przypisany do zamowienia
      * @ORM\ManyToOne(targetEntity="User", inversedBy="carOrders")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
@@ -56,6 +62,7 @@ class CarOrder
 
 
     /**
+     * zwraca id zamowienia
      * Get id
      *
      * @return integer 
@@ -66,6 +73,7 @@ class CarOrder
     }
 
     /**
+     * ustawia date (od)
      * Set dateFrom
      *
      * @param \DateTime $dateFrom
@@ -79,6 +87,7 @@ class CarOrder
     }
 
     /**
+     * Zwraca date (od)
      * Get dateFrom
      *
      * @return \DateTime 
@@ -89,6 +98,7 @@ class CarOrder
     }
 
     /**
+     * Ustawia date (do)
      * Set dateTo
      *
      * @param \DateTime $dateTo
@@ -102,6 +112,7 @@ class CarOrder
     }
 
     /**
+     * Zwraca date (do)
      * Get dateTo
      *
      * @return \DateTime 
@@ -112,6 +123,7 @@ class CarOrder
     }
 
     /**
+     * Ustawia ocene
      * Set rate
      *
      * @param string $rate
@@ -125,6 +137,7 @@ class CarOrder
     }
 
     /**
+     * Zwraca ocene
      * Get rate
      *
      * @return string 
@@ -135,6 +148,7 @@ class CarOrder
     }
 
     /**
+     * Ustawia samochod w zamowieniu
      * Set car
      *
      * @param \AppBundle\Entity\Car $car
@@ -148,6 +162,7 @@ class CarOrder
     }
 
     /**
+     * Zwraca samochod z zamowienia
      * Get car
      *
      * @return \AppBundle\Entity\Car 
@@ -158,6 +173,7 @@ class CarOrder
     }
 
     /**
+     * Ustawia uzytkownika w zamowieniu
      * Set user
      *
      * @param \AppBundle\Entity\User $user
@@ -171,6 +187,7 @@ class CarOrder
     }
 
     /**
+     * Zwraca uzytkownika zamowienia
      * Get user
      *
      * @return \AppBundle\Entity\User 
@@ -180,6 +197,10 @@ class CarOrder
         return $this->user;
     }
 
+    /**
+     * zwraca cene
+     * @return int
+     */
     public function getPrice(){
         $car = $this->getCar();
 
