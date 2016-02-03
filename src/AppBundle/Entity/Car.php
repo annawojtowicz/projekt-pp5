@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\File\File;
 class Car
 {
     /**
+     * Id poszczególnych samochodów
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -24,6 +25,7 @@ class Car
     private $id;
 
     /**
+     * Marka poszczególnych samochodów
      * @var string
      *
      * @ORM\Column(name="brand", type="string", length=255)
@@ -31,6 +33,7 @@ class Car
     private $brand;
 
     /**
+     * Model samochodu
      * @var string
      *
      * @ORM\Column(name="model", type="string", length=255)
@@ -38,6 +41,7 @@ class Car
     private $model;
 
     /**
+     * Numer rejestracyjny
      * @var string
      *
      * @ORM\Column(name="number", type="string", length=255, unique=true)
@@ -45,6 +49,7 @@ class Car
     private $number;
 
     /**
+     *Parametry pojazdu(ilosc pasazerow i naped)
      * @var string
      *
      * @ORM\Column(name="description", type="text")
@@ -52,6 +57,7 @@ class Car
     private $description;
 
     /**
+     *Kategoria pojazdu)
      * @var string
      *
      * @ORM\Column(name="category", type="string", length=255)
@@ -59,6 +65,7 @@ class Car
     private $category;
 
     /**
+     * Cena wypozyczenia
      * @var string
      *
      * @ORM\Column(name="price", type="decimal", precision=10, scale=2)
@@ -66,21 +73,25 @@ class Car
     private $price;
 
     /**
+     * Ściezka do obrazka samochodu
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     public $path;
 
     /**
+     * Zmienna ktora przechowuje obrazek w momencie przesylania go na serwer
      * @Assert\File(maxSize="6000000")
      */
     private $file;
 
     /**
+     * Relacja do tabeli Car Orders ktora przechowuje zamowienia na zlozone samochody
      * @ORM\OneToMany(targetEntity="CarOrder", mappedBy="car")
      */
     protected $carOrders;
 
     /**
+     * Metoda slużące do ustawiania pliku uploadowanego na serwer
      * Sets file.
      *
      * @param File $file
@@ -91,6 +102,7 @@ class Car
     }
 
     /**
+     * Metoda służąca do pobierania pliku wysylanego na serwer
      * Get file.
      *
      * @return File
@@ -100,6 +112,10 @@ class Car
         return $this->file;
     }
 
+    /**
+     * Zwraca ścieżkę absolutną do obrazka
+     * @return null|string
+     */
     public function getAbsolutePath()
     {
         return null === $this->path
@@ -107,6 +123,10 @@ class Car
             : $this->getUploadRootDir().'/'.$this->path;
     }
 
+    /**
+     * Zwraca ściezkę do obrazka który jest wyswietlany w przegladarce
+     * @return null|string
+     */
     public function getWebPath()
     {
         return null === $this->path
@@ -114,11 +134,19 @@ class Car
             : $this->getUploadDir().'/'.$this->path;
     }
 
+    /**
+     * Główny folder do przesyłania zdjęć
+     * @return string
+     */
     protected function getUploadRootDir()
     {
         return __DIR__.'/../../../web/'.$this->getUploadDir();
     }
 
+    /**
+     * Zwraca sciezke do folderu z obrazkami po wejsciu do katalogu web w projekie
+     * @return string
+     */
     protected function getUploadDir()
     {
         return 'uploads/cars';
@@ -126,6 +154,8 @@ class Car
 
 
     /**
+     * Zwraca id
+     *
      * Get id
      *
      * @return integer 
@@ -136,6 +166,7 @@ class Car
     }
 
     /**
+     * ustawia markę
      * Set brand
      *
      * @param string $brand
@@ -149,6 +180,7 @@ class Car
     }
 
     /**
+     * Zwraca markę
      * Get brand
      *
      * @return string 
@@ -159,6 +191,7 @@ class Car
     }
 
     /**
+     * Ustawia model
      * Set model
      *
      * @param string $model
@@ -172,6 +205,7 @@ class Car
     }
 
     /**
+     * Pobiera model
      * Get model
      *
      * @return string 
@@ -182,6 +216,7 @@ class Car
     }
 
     /**
+     * Ustawia nr rejestracyjny pojazdu
      * Set number
      *
      * @param string $number
@@ -195,6 +230,7 @@ class Car
     }
 
     /**
+     * Zwraca numer rejestracyjny
      * Get number
      *
      * @return string 
@@ -205,6 +241,7 @@ class Car
     }
 
     /**
+     * Ustawia kategorię
      * Set category
      *
      * @param string $category
@@ -218,6 +255,7 @@ class Car
     }
 
     /**
+     * Zwraca kategorię pojazdu
      * Get category
      *
      * @return string 
@@ -228,6 +266,8 @@ class Car
     }
 
     /**
+     *
+     * Ustawia cenę
      * Set price
      *
      * @param string $price
@@ -241,6 +281,7 @@ class Car
     }
 
     /**
+     * Zwraca cenę
      * Get price
      *
      * @return string 
@@ -250,6 +291,7 @@ class Car
         return $this->price;
     }
     /**
+     * KONSTRUKTOR
      * Constructor
      */
     public function __construct()
@@ -258,6 +300,7 @@ class Car
     }
 
     /**
+     * Ustawia opis(parametry - ilosc pasazerow i naped)
      * Set description
      *
      * @param string $description
@@ -271,6 +314,7 @@ class Car
     }
 
     /**
+     * Zwraca opis(parametry - ilosc pasazerow i naped)
      * Get description
      *
      * @return string 
@@ -281,6 +325,7 @@ class Car
     }
 
     /**
+     * Ustawia ściezkę do obrazka
      * Set path
      *
      * @param string $path
@@ -294,6 +339,7 @@ class Car
     }
 
     /**
+     * Zwraca ścieżkę do obrazków
      * Get path
      *
      * @return string 
@@ -304,6 +350,7 @@ class Car
     }
 
     /**
+     * Dodaje zamówienia do listy zamowien
      * Add carOrders
      *
      * @param \AppBundle\Entity\CarOrder $carOrders
@@ -317,6 +364,7 @@ class Car
     }
 
     /**
+     * Usuwanie zamowienia z listy zamowien
      * Remove carOrders
      *
      * @param \AppBundle\Entity\CarOrder $carOrders
@@ -327,6 +375,7 @@ class Car
     }
 
     /**
+     * Zwraca zamowienie bedace na liscie zamowien
      * Get carOrders
      *
      * @return \Doctrine\Common\Collections\Collection 
