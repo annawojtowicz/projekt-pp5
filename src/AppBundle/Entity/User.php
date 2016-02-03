@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class User extends BaseUser
 {
     /**
+     * Id uzytkownika
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -19,6 +20,7 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * zmowienie uzytkownika
      * @ORM\OneToMany(targetEntity="CarOrder", mappedBy="user")
      */
     protected $carOrders;
@@ -30,6 +32,7 @@ class User extends BaseUser
     }
 
     /**
+     * Dodaje zamowienia samochodow
      * Add carOrders
      *
      * @param \AppBundle\Entity\CarOrder $carOrders
@@ -43,6 +46,7 @@ class User extends BaseUser
     }
 
     /**
+     * Usuwa zamowienia
      * Remove carOrders
      *
      * @param \AppBundle\Entity\CarOrder $carOrders
@@ -53,6 +57,7 @@ class User extends BaseUser
     }
 
     /**
+     * Zwraca zamowienia uzytkownika
      * Get carOrders
      *
      * @return \Doctrine\Common\Collections\Collection 
