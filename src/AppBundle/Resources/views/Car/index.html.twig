@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block pageHeader %}{{ car.brand }} {{ car.model }}{% endblock pageHeader %}
+{% block breadcrumbs %}
+    <li><a href="/">Home</a></li>
+    <li class="active">{{ car.brand }} {{ car.model }}</li>
+{% endblock breadcrumbs %}
+
+{% block pageContent %}
+
+    <div class="col-md-12 ui-sortable">
+        <div class="panel panel-inverse" data-sortable-id="ui-general-1">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">{{ car.brand }} {{ car.model }}</h4>
+            </div>
+            <div class="panel-body">
+                <ul class="media-list media-list-with-divider">
+                    <li class="media media-lg">
+                        <a href="javascript:;" class="pull-left">
+                            <img class="media-object" src="/{{ car.getWebPath() }}" alt="{{ car.brand }} {{ car.model }}">
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading">{{ car.brand }} {{ car.model }}</h4>
+                            <dl>{{ car.description|raw }}</dl>
+                            <p>Status <strong>DOSTEPNY</strong></p>
+                            <p class="lead">Cena za dobę: <strong>{{ car.price }} PLN</strong></p>
+                            <a href="{{ path('app_rent', {id:car.id}) }}" class="btn btn-success m-r-5 m-b-5">Wypożycz</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock pageContent %}

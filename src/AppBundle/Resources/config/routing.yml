@@ -1,0 +1,15 @@
+app_homepage:
+    path:   /
+    defaults: { _controller: AppBundle:Default:index }
+
+app_orders:
+    path:   /zamowienia.html
+    defaults: { _controller: AppBundle:Orders:index }
+
+app_car:
+    path:   /samochod/{id}.html
+    defaults: { _controller: AppBundle:Car:index }
+
+app_rent:
+    path:   /samochod/{id}/wypozycz.html
+    defaults: { _controller: AppBundle:Orders:rent }

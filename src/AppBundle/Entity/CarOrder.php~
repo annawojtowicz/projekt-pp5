@@ -38,7 +38,7 @@ class CarOrder
     /**
      * @var string
      *
-     * @ORM\Column(name="rate", type="integer", nullable=true)
+     * @ORM\Column(name="rate", type="integer")
      */
     private $rate;
 
@@ -132,60 +132,5 @@ class CarOrder
     public function getRate()
     {
         return $this->rate;
-    }
-
-    /**
-     * Set car
-     *
-     * @param \AppBundle\Entity\Car $car
-     * @return CarOrder
-     */
-    public function setCar(\AppBundle\Entity\Car $car = null)
-    {
-        $this->car = $car;
-
-        return $this;
-    }
-
-    /**
-     * Get car
-     *
-     * @return \AppBundle\Entity\Car 
-     */
-    public function getCar()
-    {
-        return $this->car;
-    }
-
-    /**
-     * Set user
-     *
-     * @param \AppBundle\Entity\User $user
-     * @return CarOrder
-     */
-    public function setUser(\AppBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \AppBundle\Entity\User 
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    public function getPrice(){
-        $car = $this->getCar();
-
-        $dateFrom = $this->getDateFrom();
-        $dateTo = $this->getDateTo();
-        $diff = $dateTo->diff($dateFrom);
-        return intval($diff->format('%d')) * $car->getPrice();
     }
 }

@@ -4,13 +4,14 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Car
  *
  * @ORM\Table(name="car")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CarRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Car
 {
@@ -76,7 +77,7 @@ class Car
      * Ściezka do obrazka samochodu
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    public $path;
+    private $path;
 
     /**
      * Zmienna ktora przechowuje obrazek w momencie przesylania go na serwer
@@ -84,74 +85,13 @@ class Car
      */
     private $file;
 
+    private $temp;
+
     /**
      * Relacja do tabeli Car Orders ktora przechowuje zamowienia na zlozone samochody
      * @ORM\OneToMany(targetEntity="CarOrder", mappedBy="car")
      */
     protected $carOrders;
-
-    /**
-     * Metoda slużące do ustawiania pliku uploadowanego na serwer
-     * Sets file.
-     *
-     * @param File $file
-     */
-    public function setFile(File $file = null)
-    {
-        $this->file = $file;
-    }
-
-    /**
-     * Metoda służąca do pobierania pliku wysylanego na serwer
-     * Get file.
-     *
-     * @return File
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * Zwraca ścieżkę absolutną do obrazka
-     * @return null|string
-     */
-    public function getAbsolutePath()
-    {
-        return null === $this->path
-            ? null
-            : $this->getUploadRootDir().'/'.$this->path;
-    }
-
-    /**
-     * Zwraca ściezkę do obrazka który jest wyswietlany w przegladarce
-     * @return null|string
-     */
-    public function getWebPath()
-    {
-        return null === $this->path
-            ? null
-            : $this->getUploadDir().'/'.$this->path;
-    }
-
-    /**
-     * Główny folder do przesyłania zdjęć
-     * @return string
-     */
-    protected function getUploadRootDir()
-    {
-        return __DIR__.'/../../../web/'.$this->getUploadDir();
-    }
-
-    /**
-     * Zwraca sciezke do folderu z obrazkami po wejsciu do katalogu web w projekie
-     * @return string
-     */
-    protected function getUploadDir()
-    {
-        return 'uploads/cars';
-    }
-
 
     /**
      * Zwraca id
@@ -383,5 +323,112 @@ class Car
     public function getCarOrders()
     {
         return $this->carOrders;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->path ? null : $this->getUploadRootDir() . '/' . $this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path ? null : $this->getUploadDir() . '/' . $this->path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__ . '/../../../web/' . $this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/cars';
+    }
+
+    public function getFixturesPath()
+    {
+        return __DIR__ . '/../Resources/assets/cars/';
+    }
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+        // check if we have an old image path
+        if (isset($this->path)) {
+            // store the old name to delete after the update
+            $this->temp = $this->path;
+            $this->path = null;
+        } else {
+            $this->path = 'initial';
+        }
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->getFile()) {
+            // do whatever you want to generate a unique filename
+            $filename = sha1(uniqid(mt_rand(), true));
+            $this->path = $filename . '.' . $this->getFile()->guessExtension();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->getFile()) {
+            return;
+        }
+
+        // if there is an error moving the file, an exception will
+        // be automatically thrown by move(). This will properly prevent
+        // the entity from being persisted to the database on error
+        $this->getFile()->move($this->getUploadRootDir(), $this->path);
+
+        // check if we have an old image
+        if (isset($this->temp)) {
+            // delete the old image
+            unlink($this->getUploadRootDir() . '/' . $this->temp);
+            // clear the temp image path
+            $this->temp = null;
+        }
+
+        $this->file = null;
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
     }
 }

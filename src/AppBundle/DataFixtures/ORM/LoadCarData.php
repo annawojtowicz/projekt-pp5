@@ -26,17 +26,17 @@ class LoadCarData implements FixtureInterface
         $car->setNumber('KRA5A105');
         $car->setPrice(100);
         $car->setDescription("
-        <dd>Prędkośc maksymalna</dd>
-        <dt>100km/h</dt>
-        <dd>Ilość pasażerów</dd>
-        <dt>5</dt>
-        <dd>Napęd</dd>
-        <dt>na 2 koła</dt>
+        <dt>Prędkośc maksymalna</dt>
+        <dd>100km/h</dd>
+        <dt>Ilość pasażerów</dt>
+        <dd>5</dd>
+        <dt>Napęd</dt>
+        <dd>na 2 koła</dd>
         ");
         $car->setCategory("Osobowe");
 
-
-        $file = new File($this->path . '1.jpg');
+        copy($car->getFixturesPath() . '1.jpg', $car->getFixturesPath() . '1-copy.jpg');
+        $file = new UploadedFile($this->path . '1-copy.jpg', $car->getBrand().' '.$car->getModel(), 'image/jpg', null, null, true);
         $car->setFile($file);
 
         $manager->persist($car);
@@ -48,17 +48,17 @@ class LoadCarData implements FixtureInterface
         $car->setNumber('KRA101010');
         $car->setPrice(70);
         $car->setDescription("
-        <dd>Prędkośc maksymalna</dd>
-        <dt>10km/h</dt>
-        <dd>Ilość pasażerów</dd>
-        <dt>2</dt>
-        <dd>Napęd</dd>
-        <dt>na 4 kopyta</dt>
+        <dt>Prędkośc maksymalna</dt>
+        <dd>10km/h</dd>
+        <dt>Ilość pasażerów</dt>
+        <dd>2</dd>
+        <dt>Napęd</dt>
+        <dd>na 4 kopyta</dd>
         ");
         $car->setCategory("Terenowe");
 
-
-        $file = new File($this->path . '2.jpg');
+        copy($car->getFixturesPath() . '2.jpg', $car->getFixturesPath() . '2-copy.jpg');
+        $file = new UploadedFile($this->path . '2-copy.jpg', $car->getBrand().' '.$car->getModel(), 'image/jpeg', null, null, true);
         $car->setFile($file);
 
         $manager->persist($car);
@@ -70,17 +70,17 @@ class LoadCarData implements FixtureInterface
         $car->setNumber('KRA5A107');
         $car->setPrice(150);
         $car->setDescription("
-        <dd>Prędkośc maksymalna</dd>
-        <dt>300km/h</dt>
-        <dd>Ilość pasażerów</dd>
-        <dt>5</dt>
-        <dd>Napęd</dd>
-        <dt>na 8 kół</dt>
+        <dt>Prędkośc maksymalna</dt>
+        <dd>300km/h</dd>
+        <dt>Ilość pasażerów</dt>
+        <dd>5</dd>
+        <dt>Napęd</dt>
+        <dd>na 8 kół</dd>
         ");
         $car->setCategory("Osobowe");
 
-
-        $file = new File($this->path . '3.jpg');
+        copy($car->getFixturesPath() . '3.jpg', $car->getFixturesPath() . '3-copy.jpg');
+        $file = new UploadedFile($this->path . '3-copy.jpg', $car->getBrand().' '.$car->getModel(), 'image/jpeg', null, null, true);
         $car->setFile($file);
 
         $manager->persist($car);
@@ -92,17 +92,17 @@ class LoadCarData implements FixtureInterface
         $car->setNumber('KRA5A100');
         $car->setPrice(30);
         $car->setDescription("
-        <dd>Prędkośc maksymalna</dd>
-        <dt>25km/h</dt>
-        <dd>Ilość pasażerów</dd>
-        <dt>5</dt>
-        <dd>Napęd</dd>
-        <dt>na 2 koła</dt>
+        <dt>Prędkośc maksymalna</dt>
+        <dd>25km/h</dd>
+        <dt>Ilość pasażerów</dt>
+        <dd>5</dd>
+        <dt>Napęd</dt>
+        <dd>na 2 koła</dd>
         ");
         $car->setCategory("Osobowe");
 
-
-        $file = new File($this->path . '4.jpg');
+        copy($car->getFixturesPath() . '4.jpg', $car->getFixturesPath() . '4-copy.jpg');
+        $file = new UploadedFile($this->path . '4-copy.jpg', $car->getBrand().' '.$car->getModel(), 'image/jpeg', null, null, true);
         $car->setFile($file);
 
         $manager->persist($car);
@@ -114,17 +114,17 @@ class LoadCarData implements FixtureInterface
         $car->setNumber('KRA5A005');
         $car->setPrice(1000);
         $car->setDescription("
-        <dd>Prędkośc maksymalna</dd>
-        <dt>105km/h</dt>
-        <dd>Ilość pasażerów</dd>
-        <dt>10</dt>
-        <dd>Napęd</dd>
-        <dt>na 4 koła</dt>
+        <dt>Prędkośc maksymalna</dt>
+        <dd>105km/h</dd>
+        <dt>Ilość pasażerów</dt>
+        <dd>10</dd>
+        <dt>Napęd</dt>
+        <dd>na 4 koła</dd>
         ");
         $car->setCategory("Terenowe");
 
-
-        $file = new File($this->path . '5.jpg');
+        copy($car->getFixturesPath() . '5.jpg', $car->getFixturesPath() . '5-copy.jpg');
+        $file = new UploadedFile($this->path . '5-copy.jpg', $car->getBrand().' '.$car->getModel(), 'image/jpeg', null, null, true);
         $car->setFile($file);
 
         $manager->persist($car);

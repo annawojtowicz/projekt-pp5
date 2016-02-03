@@ -19,7 +19,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="CarOrder", mappedBy="car")
+     * @ORM\OneToMany(targetEntity="CarOrder", mappedBy="user")
      */
     protected $carOrders;
 

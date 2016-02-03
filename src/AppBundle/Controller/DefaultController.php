@@ -8,14 +8,22 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Route("/", name="homepage")
-     */
-    public function indexAction(Request $request)
+
+    public function indexAction()
     {
-        // replace this example code with whatever you need
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('AppBundle:Car');
+
+        $allCars = $repo->getAllCars();
+        $mostPopular = $repo->getMostPopularCars();
+        $bestRated = $repo->getBestRatedCars();
+        $categories = $repo->getCategories();
+
         return $this->render('AppBundle:Default:index.html.twig', array(
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
+            'allCars' => $allCars,
+            'mostPopular' => $mostPopular,
+            'bestRated' => $bestRated,
+            'categories' => $categories
         ));
     }
 }
