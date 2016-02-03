@@ -17,6 +17,10 @@ class LoadCarData implements FixtureInterface
         $this->path = __DIR__ . '/../../Resources/assets/cars/';
     }
 
+    /**
+     * Dane samochodow
+     * @param ObjectManager $manager
+     */
     public function load(ObjectManager $manager)
     {
         /* CAR START */

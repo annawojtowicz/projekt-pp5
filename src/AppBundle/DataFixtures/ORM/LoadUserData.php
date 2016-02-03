@@ -7,6 +7,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+
+
 class LoadUserData implements FixtureInterface, ContainerAwareInterface
 {
     /**
@@ -19,6 +21,10 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $this->container = $container;
     }
 
+    /**
+     * Dane uzytkownikow
+     * @param ObjectManager $manager
+     */
     public function load(ObjectManager $manager)
     {
         $userManager = $this->container->get('fos_user.user_manager');
