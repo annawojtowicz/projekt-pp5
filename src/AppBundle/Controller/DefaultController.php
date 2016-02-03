@@ -14,7 +14,10 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class DefaultController extends Controller
 {
-
+    /**
+     * Odpowiada za wyswietlenie str glownej
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();

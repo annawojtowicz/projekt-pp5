@@ -14,7 +14,11 @@ use AppBundle\Entity\Car;
  */
 class CarController extends Controller
 {
-
+    /**
+     * odpowiada za wyswietlenie pojedynczego samochodu
+     * @param Car $car
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction(Car $car)
     {
         return $this->render('AppBundle:Car:index.html.twig', array(

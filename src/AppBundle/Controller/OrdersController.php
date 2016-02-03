@@ -15,7 +15,10 @@ use AppBundle\Entity;
  */
 class OrdersController extends Controller
 {
-
+    /**
+     * odpowiada za wyswietlenie pojedynczego zamowienia
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -30,6 +33,11 @@ class OrdersController extends Controller
         ));
     }
 
+    /**
+     *tworzenie zamowienia
+     * @param Entity\Car $car
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function rentAction(Entity\Car $car)
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
